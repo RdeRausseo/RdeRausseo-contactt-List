@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import avatar from "../assets/img/avatar.png"
+import avatar from "../assets/img/avatar.png";
 
 const UserContactCard = ({ contact }) => {
   return (
@@ -11,7 +11,10 @@ const UserContactCard = ({ contact }) => {
         </div>
         <div className="col-8">
           <div className="card-body">
-            <h5 className="card-title">{contact.name}</h5>
+            <div className="d-flex justify-content-center align-items-start gap-2">
+              <h5 className="card-title">{contact.name}</h5>
+              <button className="btn btn-sm btn-danger"> Delete </button>
+            </div>
             <p className="card-text">
               <small className="text-body-secondary">
                 email: {contact.address}

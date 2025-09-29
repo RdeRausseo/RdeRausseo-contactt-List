@@ -7,12 +7,11 @@ export const Home = () => {
 
   return (
     <div className="container text-center p-5">
-      
-	  <Link>
-	  <button className="btn btn-primary my-2"> Añadir contacto </button>
-	  </Link>
-      <h1> Lista de contactos de: RdeR </h1>
-      <ContactList />
+      <Link to="/addContact">
+        <button className="btn btn-primary my-2"> Añadir contacto </button>
+      </Link>
+        <h1> Lista de contactos de: RdeR </h1>
+        <ContactList />
     </div>
   );
 };
