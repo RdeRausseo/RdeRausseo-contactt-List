@@ -20,6 +20,7 @@ export default function AddContactForm() {
   })
 
   const handleChange = (e) => {
+
     const { name, value } = e.target;
 
     setFormData((olddata) => ({
@@ -28,10 +29,34 @@ export default function AddContactForm() {
     }));
   };
 
-  const validateField = (name, value) =>{
-    if(name === "name"){
-      
-    } 
+  const handleBlur = (e) => {
+
+    const {name, value} = e.target; 
+
+    const errorMsg = validateField(name, value); 
+
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name] : errorMsg
+    }))
+  }
+
+  const validateField = (name, value) => {
+    switch(name){
+      case 'name':
+        if(value.trim() === '')
+          return 'El campo del nombre no puede estar vacío';
+      case 'phone': 
+        if(isNan(value))
+          return 'El numero solo debe tener valores númericos'
+      case 'email':
+        if (!value.includes('@'))
+          return 'Formato de correo incorrecto, falta el caracter @'
+      case 'address':
+        if(address.trim()==='')
+          return 'El campo de dirección es obligatorio, no puede estar vacío'  
+      return ''    
+    }
   }
 
   const addContact = async () => {
@@ -68,7 +93,9 @@ export default function AddContactForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.name && ( <span className="text-danger"> {errors.name} </span>)}
         </div>
 
         <div className="mb-3">
@@ -82,7 +109,9 @@ export default function AddContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.phone && (<span className="text-danger"> {errors.phone} </span>)}
         </div>
 
         <div className="mb-3">
@@ -96,7 +125,9 @@ export default function AddContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.email && (<span className="text-danger"> {errors.email} </span>)}
         </div>
 
         <div className="mb-3">
@@ -110,7 +141,9 @@ export default function AddContactForm() {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.address && (<span className="text-danger"> {errors.address} </span>)}
         </div>
 
         <button type="submit" className="btn btn-primary">

@@ -36,8 +36,7 @@ const ContactList = () => {
             ))}
         </ul>) :(
             <h2> Aún no hay contactos</h2>
-        )
-    
+        ) 
   )
 }
 
