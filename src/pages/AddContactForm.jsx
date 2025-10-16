@@ -19,6 +19,10 @@ export default function AddContactForm() {
     address: "",
   })
 
+  const validateForm = () => {
+
+  }
+
   const handleChange = (e) => {
 
     const { name, value } = e.target;
@@ -78,6 +82,10 @@ export default function AddContactForm() {
       console.error(error)
     }
   };
+
+  const handleSubmit = (e) =>{
+    
+  }
 
   return (
     <div className="container">
@@ -146,7 +154,7 @@ export default function AddContactForm() {
           {errors.address && (<span className="text-danger"> {errors.address} </span>)}
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" onSubmit={handleSubmit}>
           Submit
         </button>
       </form>
