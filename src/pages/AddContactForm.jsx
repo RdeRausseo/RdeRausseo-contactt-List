@@ -19,8 +19,46 @@ export default function AddContactForm() {
     address: "",
   })
 
-  const validateForm = () => {
+  const validateField = (name, value) => {
+    switch(name){
+      case 'name':
+        if(value.trim() === '')
+          return 'El campo del nombre no puede estar vacío';
+      case 'phone': 
+        if(value.trim() === ''){
+            return 'El campo del número telefónico no puede estar vacío';
+        }else if(Number.isNan(value))
+          return 'El numero solo debe tener valores númericos'
+      case 'email':
+        if(value.trim() === ""){
+          return 'El email no puede estar vacío'
+        }else if (!value.includes('@'))
+          return 'El email debe ser escrito correctamente'
+      case 'address':
+        if(address.trim()==='')
+          return 'El campo de dirección es obligatorio, no puede estar vacío'  
+      return ''    
+    }
+  }
 
+  const validateForm = (data) => {
+    let errors = {}; 
+    if(!data.name.trim())
+      errors.name = 'El campo nombre no puede estar vacío'; 
+    if(!data.phone.trim()){
+      errors.phone = 'El campo teléfono no puede estar vacío'
+    }else if(Number.isNaN(data.phone)){
+      errors.phone = 'El número de telefono solo pueden ser caracteres del 0-9'
+    }
+    if(!data.email.trim()){
+      errors.email = 'Debes colocar tu email correctamente'
+    }else if(!data.email.includes('@')){
+      errors.email = 'Debes colocar tu email correctamente'
+    }
+    if(!data.address.trim())
+      errors.address = 'El campo con la dirección no puede estar vacío'
+
+    return errors; 
   }
 
   const handleChange = (e) => {
@@ -45,24 +83,6 @@ export default function AddContactForm() {
     }))
   }
 
-  const validateField = (name, value) => {
-    switch(name){
-      case 'name':
-        if(value.trim() === '')
-          return 'El campo del nombre no puede estar vacío';
-      case 'phone': 
-        if(isNan(value))
-          return 'El numero solo debe tener valores númericos'
-      case 'email':
-        if (!value.includes('@'))
-          return 'Formato de correo incorrecto, falta el caracter @'
-      case 'address':
-        if(address.trim()==='')
-          return 'El campo de dirección es obligatorio, no puede estar vacío'  
-      return ''    
-    }
-  }
-
   const addContact = async () => {
 
     try {
@@ -84,7 +104,19 @@ export default function AddContactForm() {
   };
 
   const handleSubmit = (e) =>{
+
+    e.prevenDefault()
     
+    let newErrors = validateForm(formData)
+
+    setErrors(newErrors); 
+
+    if(Object.keys(errors).length === 0){
+      e.submit()
+    }else{
+      alert('Datos en el formulario incorrectos, envío denegado'); 
+    }
+
   }
 
   return (
