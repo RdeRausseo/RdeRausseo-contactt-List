@@ -119,6 +119,8 @@ export default function AddContactForm() {
 
   }
 
+  console.log('regreso al proyecto')
+
   return (
     <div className="container">
       <form>
